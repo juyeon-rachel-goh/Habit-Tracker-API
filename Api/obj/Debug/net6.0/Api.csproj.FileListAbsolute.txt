@@ -1,7 +1,6 @@
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\appsettings.json
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\Api.staticwebassets.runtime.json
-C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\app.db
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\Api.exe
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\Api.deps.json
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\Api.runtimeconfig.json
@@ -62,3 +61,5 @@ C:\Users\Rachel\desktop\Habit-Tracker-API\Api\obj\Debug\net6.0\refint\Api.dll
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\obj\Debug\net6.0\Api.pdb
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\Users\Rachel\desktop\Habit-Tracker-API\Api\obj\Debug\net6.0\ref\Api.dll
+C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\MySqlConnector.dll
+C:\Users\Rachel\desktop\Habit-Tracker-API\Api\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
