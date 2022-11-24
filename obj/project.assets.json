@@ -1647,11 +1647,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rachel\\desktop\\Habit-Tracker-API\\Api\\Api.csproj",
+      "projectUniqueName": "C:\\Users\\Rachel\\Desktop\\Habit-Tracker-API\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "C:\\Users\\Rachel\\desktop\\Habit-Tracker-API\\Api\\Api.csproj",
+      "projectPath": "C:\\Users\\Rachel\\Desktop\\Habit-Tracker-API\\Api.csproj",
       "packagesPath": "C:\\Users\\Rachel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rachel\\desktop\\Habit-Tracker-API\\Api\\obj\\",
+      "outputPath": "C:\\Users\\Rachel\\Desktop\\Habit-Tracker-API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rachel\\AppData\\Roaming\\NuGet\\NuGet.Config",
