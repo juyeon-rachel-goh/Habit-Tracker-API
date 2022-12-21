@@ -1,8 +1,7 @@
 using Api.DataTransferObjects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-// using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace Api.Controllers;
 
@@ -10,9 +9,11 @@ namespace Api.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
+    //Creating instances 
     private ILogger<AuthController> _logger;
     private UserManager<IdentityUser> _userManager;
     private SignInManager<IdentityUser> _signInManager;
+
 
     public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
     {
@@ -25,7 +26,7 @@ public class AuthController : ControllerBase
     [Route("")]
     public OkObjectResult Get()
     {
-        return Ok("hellooo");
+        return Ok("");
     }
 
 
@@ -35,7 +36,7 @@ public class AuthController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var user = new IdentityUser { UserName = userRegister.UserName, Email = userRegister.Email };
+            var user = new IdentityUser { UserName = userRegister.Username, Email = userRegister.Email };
             var result = await _userManager.CreateAsync(user, userRegister.Password);
             if (result.Succeeded)
             {
@@ -59,9 +60,12 @@ public class AuthController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(userSignin.UserName, userSignin.Password, true, false);
+            var result = await _signInManager.PasswordSignInAsync(userSignin.Username, userSignin.Password, false, false);
             if (result.Succeeded)
             {
+                var userClientInfo = new UserClientInfo();
+                userClientInfo.Username = userSignin.Username;
+                HttpContext.Response.Cookies.Append("userInfo", JsonConvert.SerializeObject(userClientInfo));
                 return Ok();
             }
             else
