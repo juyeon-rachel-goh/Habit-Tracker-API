@@ -76,25 +76,18 @@ public class AuthController : ControllerBase
         return BadRequest();
     }
 
-        [HttpPost]
+    [HttpPost]
     [Route("signout")]
-    public async Task<IActionResult> SignOut([FromBody] UserRegister userSignin)
+    public async Task<IActionResult> SignOutUser()
     {
+
         if (ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(userSignin.Username, userSignin.Password, false, false);
-            if (result.Succeeded)
-            {
-                var userClientInfo = new UserClientInfo();
-                userClientInfo.Username = userSignin.Username;
-                HttpContext.Response.Cookies.Append("userInfo", JsonConvert.SerializeObject(userClientInfo));
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            await _signInManager.SignOutAsync();
+            HttpContext.Response.Cookies.Delete("userInfo");
+            return Ok();
         }
-        return BadRequest();
+        else { return BadRequest(); }
+
     }
 }
