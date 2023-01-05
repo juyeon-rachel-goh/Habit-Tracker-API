@@ -1,4 +1,5 @@
 using Api.DataTransferObjects;
+using Api.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,13 +14,16 @@ public class AuthController : ControllerBase
     private ILogger<AuthController> _logger;
     private UserManager<IdentityUser> _userManager;
     private SignInManager<IdentityUser> _signInManager;
+    private readonly IAuthRepository _authRepository;
 
 
-    public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public AuthController(ILogger<AuthController> logger, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IAuthRepository authRepository)
     {
         _logger = logger;
         _userManager = userManager;
         _signInManager = signInManager;
+        _authRepository = authRepository;
+
     }
 
     [HttpGet]
@@ -89,5 +93,18 @@ public class AuthController : ControllerBase
         }
         else { return BadRequest(); }
 
+    }
+
+    [HttpPost]
+    [Route("duplicate-email")]
+    async public Task<ActionResult<dynamic>> DuplicateCheck([FromBody] UserRegister userSignin)
+    {
+        var result = await this._authRepository.DuplicateEmail(userSignin.Email);
+        // if returned result is true
+        if (result)
+        {
+            return new { isDuplicateEmail = true };
+        }
+        return null;
     }
 }
