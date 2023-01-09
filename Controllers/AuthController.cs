@@ -96,10 +96,10 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    [Route("duplicate-email")]
-    async public Task<ActionResult<dynamic>> DuplicateCheck([FromBody] UserRegister userSignin)
+    [Route("duplicate-email/{email}")]
+    async public Task<ActionResult<dynamic>> DuplicateCheck(string email)
     {
-        var result = await this._authRepository.DuplicateEmail(userSignin.Email);
+        var result = await this._authRepository.DuplicateEmail(email);
         // if returned result is true
         if (result)
         {
