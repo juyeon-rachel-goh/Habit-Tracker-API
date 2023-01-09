@@ -1,11 +1,9 @@
-using Api;
 using Api.Data;
 using Api.Models;
-using Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Project_2_5.Services;
+namespace Api.Services;
 
 public class HabitService : IHabitService
 

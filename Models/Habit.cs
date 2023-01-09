@@ -10,18 +10,18 @@ public class Habit
     public string? HabitName { get; set; }
     public string? Frequency { get; set; }
     public string CountPerFreq { get; set; }
-    public string? IconColor { get; set; }
-    public string? IconImage { get; set; }
+    public string IconColor { get; set; }
+    public string IconImage { get; set; }
 
-    public string? CreatedOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public bool CompletionStatus { get; set; }
     public bool ArchivedStatus { get; set; } // change to enum status later
 
 
     [ForeignKey("IdentityUser")]
-    public string IdentityUserID { get; set; }
+    public string? IdentityUserID { get; set; }
 
-    public IdentityUser IdentityUser { get; set; }
+    public IdentityUser? IdentityUser { get; set; }
 }
 
