@@ -16,7 +16,7 @@ public class Habit
     public DateTime CreatedOn { get; set; }
 
     public bool CompletionStatus { get; set; }
-    public bool ArchivedStatus { get; set; } // change to enum status later
+    public ArchiveStatus ArchivedStatus { get; set; }
 
 
     [ForeignKey("IdentityUser")]

@@ -27,7 +27,7 @@ public class HabitController : ControllerBase
     {
         habit.Id = Guid.NewGuid();
         // better way to achieve this?
-        habit.ArchivedStatus = false;
+        habit.ArchivedStatus = (ArchiveStatus)0;
         habit.CompletionStatus = false;
         habit.CreatedOn = DateTime.Now;
 
