@@ -1,9 +1,6 @@
 public enum ArchiveStatus
 {
-    Ongoing = 0,
-    Paused,
+    Unarchived = 0,
     Archived,
-
-    Default
 
 }

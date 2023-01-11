@@ -26,8 +26,7 @@ public class HabitController : ControllerBase
     async public Task<ActionResult<Habit>> Post([FromBody] Habit habit)
     {
         habit.Id = Guid.NewGuid();
-        // better way to achieve this?
-        habit.ArchivedStatus = (ArchiveStatus)0;
+        habit.ArchiveStatus = (ArchiveStatus)0;
         habit.CompletionStatus = false;
         habit.CreatedOn = DateTime.Now;
 
