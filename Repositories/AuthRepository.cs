@@ -26,4 +26,20 @@ public class AuthRepository : IAuthRepository
         }
         return hasDuplicateEmail;
     }
+
+    async public Task<bool> DuplicateUsername(String username)
+    {
+        var hasDuplicateUsername = false;
+        var duplicateUsernameCount = await this.context.Users
+         .Where(
+           dbUsers => dbUsers.UserName == username
+         ).CountAsync();
+
+        if (duplicateUsernameCount >= 1)
+        {
+            hasDuplicateUsername = true;
+
+        }
+        return hasDuplicateUsername;
+    }
 }

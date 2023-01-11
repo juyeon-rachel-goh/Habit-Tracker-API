@@ -16,7 +16,7 @@ public class Habit
     public DateTime CreatedOn { get; set; }
 
     public bool CompletionStatus { get; set; }
-    public ArchiveStatus ArchivedStatus { get; set; }
+    public ArchiveStatus ArchiveStatus { get; set; }
 
 
     [ForeignKey("IdentityUser")]

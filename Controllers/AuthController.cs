@@ -46,8 +46,9 @@ public class AuthController : ControllerBase
             {
                 _logger.LogInformation("User created a new account with password.");
 
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return Ok("ok");
+                await _signInManager.SignInAsync(user, isPersistent: false); //???
+                await this.SignIn(userRegister);
+                return Ok();
             }
             foreach (var error in result.Errors)
             {
@@ -96,8 +97,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    [Route("duplicate-email/{email}")]
-    async public Task<ActionResult<dynamic>> DuplicateCheck(string email)
+    [Route("validate-email/{email}")]
+    async public Task<ActionResult<dynamic>> DuplicateCheckEmail(string email)
     {
         var result = await this._authRepository.DuplicateEmail(email);
         // if returned result is true
@@ -107,4 +108,19 @@ public class AuthController : ControllerBase
         }
         return null;
     }
+
+    [HttpPost]
+    [Route("validate-username/{username}")]
+    async public Task<ActionResult<dynamic>> DuplicateCheckUserName(string username)
+    {
+        var result = await this._authRepository.DuplicateUsername(username);
+        // if returned result is true
+        if (result)
+        {
+            return new { isDuplicateUsername = true };
+        }
+        return null;
+    }
+
+
 }
