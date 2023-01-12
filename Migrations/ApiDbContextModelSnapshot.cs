@@ -19,6 +19,32 @@ namespace Api.Migrations
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Api.Models.DailyHabitRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("HabitId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Mood")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HabitId");
+
+                    b.ToTable("DailyHabitRecords");
+                });
+
             modelBuilder.Entity("Api.Models.Habit", b =>
                 {
                     b.Property<Guid>("Id")
@@ -27,9 +53,6 @@ namespace Api.Migrations
 
                     b.Property<int>("ArchiveStatus")
                         .HasColumnType("int");
-
-                    b.Property<bool>("CompletionStatus")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("CountPerFreq")
                         .IsRequired()
@@ -256,6 +279,17 @@ namespace Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Api.Models.DailyHabitRecord", b =>
+                {
+                    b.HasOne("Api.Models.Habit", "Habits")
+                        .WithMany()
+                        .HasForeignKey("HabitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Habits");
                 });
 
             modelBuilder.Entity("Api.Models.Habit", b =>

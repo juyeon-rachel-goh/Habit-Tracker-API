@@ -15,7 +15,6 @@ public class Habit
 
     public DateTime CreatedOn { get; set; }
 
-    public bool CompletionStatus { get; set; }
     public ArchiveStatus ArchiveStatus { get; set; }
 
 
@@ -23,5 +22,6 @@ public class Habit
     public string? IdentityUserID { get; set; }
 
     public IdentityUser? IdentityUser { get; set; }
+
 }
 

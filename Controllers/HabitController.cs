@@ -27,7 +27,6 @@ public class HabitController : ControllerBase
     {
         habit.Id = Guid.NewGuid();
         habit.ArchiveStatus = (ArchiveStatus)0;
-        habit.CompletionStatus = false;
         habit.CreatedOn = DateTime.Now;
 
         // habit.IdentityUserID = IdentityUser.ID WHERE userInfo.username(COOKIE) == IdentityUser.UserName

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230111154003_modifiedFields")]
-    partial class modifiedFields
+    [Migration("20230112142707_habit-table")]
+    partial class habittable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,9 +29,6 @@ namespace Api.Migrations
 
                     b.Property<int>("ArchiveStatus")
                         .HasColumnType("int");
-
-                    b.Property<bool>("CompletionStatus")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("CountPerFreq")
                         .IsRequired()

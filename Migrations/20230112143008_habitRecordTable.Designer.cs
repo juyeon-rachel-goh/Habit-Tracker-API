@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230107171741_habit")]
-    partial class habit
+    [Migration("20230112143008_habitRecordTable")]
+    partial class habitRecordTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,24 +21,47 @@ namespace Api.Migrations
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Api.Models.DailyHabitRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("HabitId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Mood")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HabitId");
+
+                    b.ToTable("DailyHabitRecords");
+                });
+
             modelBuilder.Entity("Api.Models.Habit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<bool>("ArchivedStatus")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("CompletionStatus")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("ArchiveStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("CountPerFreq")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("CreatedOn")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Frequency")
                         .HasColumnType("longtext");
@@ -47,13 +70,14 @@ namespace Api.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("IconColor")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("IconImage")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("IdentityUserID")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
@@ -259,13 +283,22 @@ namespace Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Api.Models.DailyHabitRecord", b =>
+                {
+                    b.HasOne("Api.Models.Habit", "Habits")
+                        .WithMany()
+                        .HasForeignKey("HabitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Habits");
+                });
+
             modelBuilder.Entity("Api.Models.Habit", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("IdentityUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdentityUserID");
 
                     b.Navigation("IdentityUser");
                 });
