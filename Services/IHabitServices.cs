@@ -5,7 +5,9 @@ namespace Api.Services;
 
 
 public interface IHabitService
+
 {
+    public Task<IList<Habit>> GetHabits();
     public Task AddHabit(Habit habit);
 
 }

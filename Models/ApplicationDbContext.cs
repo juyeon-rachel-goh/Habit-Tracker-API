@@ -15,6 +15,7 @@ public class ApiDbContext : IdentityDbContext
     public DbSet<Habit> Habits { get; set; }
 
     public DbSet<DailyHabitRecord> DailyHabitRecords { get; set; }
+    public DbSet<DailyMood> DailyMoods { get; set; }
     //     protected override void OnModelCreating(ModelBuilder modelBuilder)
     // {
     //     modelBuilder

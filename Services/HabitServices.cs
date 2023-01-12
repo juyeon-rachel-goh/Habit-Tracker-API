@@ -14,7 +14,10 @@ public class HabitService : IHabitService
         this.context = context;
     }
 
-
+    async public Task<IList<Habit>> GetHabits()
+    {
+        return await this.context.Habits.ToListAsync();
+    }
     async public Task AddHabit(Habit habit)
     {
         var transaction = await context.Database.BeginTransactionAsync();
