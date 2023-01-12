@@ -21,6 +21,12 @@ public class HabitController : ControllerBase
 
     }
 
+    [HttpGet]
+    [Route("")]
+    async public Task<IList<Habit>> Get()
+    {
+        return await this.habitService.GetHabits();
+    }
     [HttpPost]
     [Route("")]
     async public Task<ActionResult<Habit>> Post([FromBody] Habit habit)
