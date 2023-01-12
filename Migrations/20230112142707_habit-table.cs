@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Api.Migrations
 {
-    public partial class habit : Migration
+    public partial class habittable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,15 +20,13 @@ namespace Api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CountPerFreq = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IconColor = table.Column<string>(type: "longtext", nullable: true)
+                    IconColor = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IconImage = table.Column<string>(type: "longtext", nullable: true)
+                    IconImage = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedOn = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CompletionStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ArchivedStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    IdentityUserID = table.Column<string>(type: "varchar(255)", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ArchiveStatus = table.Column<int>(type: "int", nullable: false),
+                    IdentityUserID = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -38,8 +36,7 @@ namespace Api.Migrations
                         name: "FK_Habits_AspNetUsers_IdentityUserID",
                         column: x => x.IdentityUserID,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
