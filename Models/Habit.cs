@@ -18,9 +18,10 @@ public class Habit
     public ArchiveStatus ArchiveStatus { get; set; }
 
 
+    [JsonIgnore]
     [ForeignKey("IdentityUser")]
     public string? IdentityUserID { get; set; }
-
+    [JsonIgnore]
     public IdentityUser? IdentityUser { get; set; }
 
 }

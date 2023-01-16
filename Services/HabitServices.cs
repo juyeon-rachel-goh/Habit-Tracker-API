@@ -1,5 +1,6 @@
 using Api.Data;
 using Api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -9,9 +10,12 @@ public class HabitService : IHabitService
 
 {
     private ApiDbContext context;
-    public HabitService(ApiDbContext context)
+
+    private UserManager<IdentityUser> _userManager;
+    public HabitService(ApiDbContext context, UserManager<IdentityUser> userManager)
     {
         this.context = context;
+        _userManager = userManager;
     }
 
     async public Task<IList<Habit>> GetHabits()

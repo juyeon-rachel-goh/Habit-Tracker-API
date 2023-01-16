@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Api.Data;
 using Api.Repositories;
 using Api.Services;
+using Api.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApiDbContext>(options =>
          options.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.8.3-mariadb")));
+builder.Services.AddScoped<IUtility, Utility>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IHabitService, HabitService>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

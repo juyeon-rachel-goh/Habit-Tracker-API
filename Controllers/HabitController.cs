@@ -14,10 +14,12 @@ public class HabitController : ControllerBase
 {
     private readonly IHabitService habitService;
     private UserManager<IdentityUser> _userManager;
-    public HabitController(IHabitService habitService, UserManager<IdentityUser> userManager)
+    private IUtility utility;
+    public HabitController(IHabitService habitService, UserManager<IdentityUser> userManager, IUtility utility)
     {
         this.habitService = habitService;
         _userManager = userManager;
+        this.utility = utility;
 
     }
 
@@ -37,10 +39,11 @@ public class HabitController : ControllerBase
 
         // habit.IdentityUserID = IdentityUser.ID WHERE userInfo.username(COOKIE) == IdentityUser.UserName
         // EX) habit.IdentityUserID = "665cae34-6d38-42d2-98c9-2ba221957b5b";
-        var cookieUserName = HttpContext.Request.Cookies["userInfo"];
-        var userInfoObj = JsonConvert.DeserializeObject<UserClientInfo>(cookieUserName);
-        var result = await this._userManager.FindByNameAsync(userInfoObj.Username);
-        habit.IdentityUserID = result.Id;
+        var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        // var cookieUserName = HttpContext.Request.Cookies["userInfo"];
+        // var userInfoObj = JsonConvert.DeserializeObject<UserClientInfo>(cookieUserName);
+        // var result = await this._userManager.FindByNameAsync(userInfoObj.Username);
+        habit.IdentityUserID = currentUser;
 
 
         if (habit == null)
