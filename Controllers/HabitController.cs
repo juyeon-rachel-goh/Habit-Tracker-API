@@ -1,4 +1,4 @@
-
+using Api.Repositories;
 using Api.DataTransferObjects;
 using Api.Models;
 using Api.Services;
@@ -13,11 +13,14 @@ namespace Api.Controllers;
 public class HabitController : ControllerBase
 {
     private readonly IHabitService habitService;
+
+    private readonly IHabitRepository habitRepository;
     private UserManager<IdentityUser> _userManager;
     private IUtility utility;
-    public HabitController(IHabitService habitService, UserManager<IdentityUser> userManager, IUtility utility)
+    public HabitController(IHabitService habitService, IHabitRepository habitRepository, UserManager<IdentityUser> userManager, IUtility utility)
     {
         this.habitService = habitService;
+        this.habitRepository = habitRepository;
         _userManager = userManager;
         this.utility = utility;
 
@@ -29,20 +32,16 @@ public class HabitController : ControllerBase
     {
         return await this.habitService.GetHabits();
     }
+
     [HttpPost]
-    [Route("")]
-    async public Task<ActionResult<Habit>> Post([FromBody] Habit habit)
+    [Route("new-habit")]
+    async public Task<ActionResult<Habit>> AddHabit([FromBody] Habit habit)
     {
         habit.Id = Guid.NewGuid();
         habit.ArchiveStatus = (ArchiveStatus)0;
         habit.CreatedOn = DateTime.Now;
 
-        // habit.IdentityUserID = IdentityUser.ID WHERE userInfo.username(COOKIE) == IdentityUser.UserName
-        // EX) habit.IdentityUserID = "665cae34-6d38-42d2-98c9-2ba221957b5b";
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
-        // var cookieUserName = HttpContext.Request.Cookies["userInfo"];
-        // var userInfoObj = JsonConvert.DeserializeObject<UserClientInfo>(cookieUserName);
-        // var result = await this._userManager.FindByNameAsync(userInfoObj.Username);
         habit.IdentityUserID = currentUser;
 
 
@@ -54,6 +53,38 @@ public class HabitController : ControllerBase
         return Ok();
     }
 
+    // Upserting Mood Data 
+    [HttpPut]
+    [Route("update-mood")]
+    async public Task<ActionResult<DailyMood>> AddMood([FromBody] DailyMood mood)
+    {
 
+        var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        mood.IdentityUserID = currentUser;
+
+        if (mood == null)
+        {
+            return BadRequest();
+        }
+
+        var result = await this.habitRepository.BeUniqueDailyMood(mood);
+        if (result) // true -> update existing record
+        {
+            var id = await this.habitRepository.FindDailyMoodId(mood);
+
+            await this.habitService.UpdateMood(id, mood);
+            return Ok();
+            //need error handling
+        }
+        else
+        {
+            mood.Id = Guid.NewGuid();
+            await this.habitService.AddMood(mood);
+            return Ok();
+            //need error handling
+        }
+
+    }
 
 }
+

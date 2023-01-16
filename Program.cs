@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
          options.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.8.3-mariadb")));
 builder.Services.AddScoped<IUtility, Utility>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IHabitRepository, HabitRepository>();
 builder.Services.AddScoped<IHabitService, HabitService>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
