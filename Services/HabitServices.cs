@@ -18,10 +18,9 @@ public class HabitService : IHabitService
         _userManager = userManager;
     }
 
-    async public Task<IList<Habit>> GetHabits(string currentUserId)
+    async public Task<IList<Habit>> GetHabits()
     {
-        return await this.context.Habits.Where((habit) => habit.IdentityUserID == currentUserId)
-        .ToListAsync();
+        return await this.context.Habits.ToListAsync();
     }
     async public Task AddHabit(Habit habit)
     {

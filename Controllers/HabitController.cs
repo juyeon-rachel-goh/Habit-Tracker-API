@@ -27,8 +27,7 @@ public class HabitController : ControllerBase
     [Route("")]
     async public Task<IList<Habit>> Get()
     {
-        var currentUserId = (await this.utility.GetContextUser(HttpContext)).Id;
-        return await this.habitService.GetHabits(currentUserId);
+        return await this.habitService.GetHabits();
     }
     [HttpPost]
     [Route("")]
