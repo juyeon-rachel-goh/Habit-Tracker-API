@@ -38,5 +38,28 @@ public class HabitService : IHabitService
         }
     }
 
+    async public Task AddMood(DailyMood mood)
+    {
+        var transaction = await context.Database.BeginTransactionAsync();
+        try
+        {
+            await context.AddAsync(mood);
+            await context.SaveChangesAsync();
 
+            await context.Database.CommitTransactionAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+        }
+    }
+
+    async public Task UpdateMood(Guid id, DailyMood mood)
+    {
+        mood.Id = id;
+        context.DailyMoods.Update(mood);
+
+        await context.SaveChangesAsync();
+
+    }
 }

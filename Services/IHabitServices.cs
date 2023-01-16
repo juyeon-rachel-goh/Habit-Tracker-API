@@ -9,5 +9,7 @@ public interface IHabitService
 {
     public Task<IList<Habit>> GetHabits();
     public Task AddHabit(Habit habit);
+    public Task AddMood(DailyMood mood);
+    public Task UpdateMood(Guid id, DailyMood mood);
 
 }
