@@ -45,4 +45,12 @@ public class HabitRepository : IHabitRepository
         .FirstAsync();
         return result.Id;
     }
+
+    async public Task<DailyMood> GetDailyMoodbyID(Guid id)
+    {
+        return await this.context.DailyMoods
+        .AsNoTracking()
+        .Where(moodData => moodData.Id == id)
+        .FirstAsync();
+    }
 }

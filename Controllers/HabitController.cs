@@ -27,8 +27,15 @@ public class HabitController : ControllerBase
     }
 
     [HttpGet]
+    [Route("mood")]
+    async public Task<IList<DailyMood>> GetDailyMoods()
+    {
+        return await this.habitService.GetDailyMoods();
+    }
+
+    [HttpGet]
     [Route("")]
-    async public Task<IList<Habit>> Get()
+    async public Task<IList<Habit>> GetHabits()
     {
         return await this.habitService.GetHabits();
     }
@@ -83,7 +90,19 @@ public class HabitController : ControllerBase
             return Ok();
             //need error handling
         }
+    }
 
+    [HttpDelete]
+    [Route("delete-mood/{id:Guid}")]
+    async public Task<ActionResult<DailyMood>> DeleteMood(Guid id)
+    {
+        var mood = await habitRepository.GetDailyMoodbyID(id);
+        if (mood == null)
+        {
+            return NotFound();
+        }
+        await this.habitService.DeleteMood(mood);
+        return Ok();
     }
 
 }
