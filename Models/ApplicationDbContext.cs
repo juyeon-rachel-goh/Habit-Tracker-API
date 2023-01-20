@@ -16,11 +16,5 @@ public class ApiDbContext : IdentityDbContext
 
     public DbSet<DailyHabitRecord> DailyHabitRecords { get; set; }
     public DbSet<DailyMood> DailyMoods { get; set; }
-    //     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder
-    //         .Entity<Habit>()
-    //         .HasOne(e => e.IdentityUser).WithOne(e => e.Id)
 
-    // }  
 }

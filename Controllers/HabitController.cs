@@ -30,14 +30,16 @@ public class HabitController : ControllerBase
     [Route("mood")]
     async public Task<IList<DailyMood>> GetDailyMoods()
     {
-        return await this.habitService.GetDailyMoods();
+        var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        return await this.habitService.GetDailyMoods(currentUser);
     }
 
     [HttpGet]
-    [Route("")]
+    [Route("habits")]
     async public Task<IList<Habit>> GetHabits()
     {
-        return await this.habitService.GetHabits();
+        var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        return await this.habitService.GetHabits(currentUser);
     }
 
     [HttpPost]
@@ -59,6 +61,13 @@ public class HabitController : ControllerBase
         await this.habitService.AddHabit(habit);
         return Ok();
     }
+
+    // [HttpPatch]
+    // [Route("archive/${id: Guid}")]
+    // async public Task<ActionResult<Habit>> archiveHabit([FromBody] string value, Guid id)
+    // {
+    //     var habit = await habitRepository.GetHabitbyID(id);
+    // }
 
     // Upserting Mood Data 
     [HttpPut]

@@ -10,4 +10,6 @@ public interface IHabitRepository
 
     public Task<DailyMood> GetDailyMoodbyID(Guid id);
 
+    public Task<Habit> GetHabitbyID(Guid id);
+
 }
