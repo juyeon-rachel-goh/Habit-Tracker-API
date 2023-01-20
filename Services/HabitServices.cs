@@ -18,15 +18,15 @@ public class HabitService : IHabitService
         _userManager = userManager;
     }
 
-    async public Task<IList<Habit>> GetHabits()
+    async public Task<IList<Habit>> GetHabits(string currentUser)
     {
-        return await this.context.Habits.ToListAsync();
+        return await this.context.Habits.Where(habit => habit.IdentityUserID == currentUser).ToListAsync();
     }
 
 
-    async public Task<IList<DailyMood>> GetDailyMoods()
+    async public Task<IList<DailyMood>> GetDailyMoods(string currentUser)
     {
-        return await this.context.DailyMoods.ToListAsync();
+        return await this.context.DailyMoods.Where(mood => mood.IdentityUserID == currentUser).ToListAsync();
     }
     async public Task AddHabit(Habit habit)
     {

@@ -7,8 +7,8 @@ namespace Api.Services;
 public interface IHabitService
 
 {
-    public Task<IList<Habit>> GetHabits();
-    public Task<IList<DailyMood>> GetDailyMoods();
+    public Task<IList<Habit>> GetHabits(string currentUser);
+    public Task<IList<DailyMood>> GetDailyMoods(string currentUser);
     public Task AddHabit(Habit habit);
     public Task AddMood(DailyMood mood);
     public Task UpdateMood(Guid id, DailyMood mood);

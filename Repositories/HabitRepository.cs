@@ -53,4 +53,12 @@ public class HabitRepository : IHabitRepository
         .Where(moodData => moodData.Id == id)
         .FirstAsync();
     }
+
+    async public Task<Habit> GetHabitbyID(Guid id)
+    {
+        return await this.context.Habits
+        .AsNoTracking()
+        .Where(habit => habit.Id == id)
+        .FirstAsync();
+    }
 }
