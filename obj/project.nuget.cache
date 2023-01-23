@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pgFeVqx7DnNhOQB+L8iOcR0HLpvGLTwpbiU1Rx3JJGb96g4kx3y7kuhgxo9wTwg8zARsuL93EZofknDMrk4z0Q==",
+  "dgSpecHash": "3ICIjI0T4Z4f88VVvVKpamO+zOkT868+WVY2XB/+wBq4WtM/bZyJJok30rsMvmyop9xUfzwqPXxH1HeFsUUfyw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\Api.csproj",
+  "projectFilePath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\habit-Tracker-API\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rachel\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.7\\microsoft.aspnetcore.cryptography.internal.6.0.7.nupkg.sha512",

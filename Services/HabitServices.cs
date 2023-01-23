@@ -43,7 +43,6 @@ public class HabitService : IHabitService
             await transaction.RollbackAsync();
         }
     }
-
     async public Task AddMood(DailyMood mood)
     {
         var transaction = await context.Database.BeginTransactionAsync();
@@ -69,6 +68,22 @@ public class HabitService : IHabitService
 
     }
 
+
+    async public Task DeleteHabit(Habit habit)
+    {
+        var transaction = await context.Database.BeginTransactionAsync();
+        try
+        {
+            context.Habits.Remove(habit);
+            await context.SaveChangesAsync();
+
+            await context.Database.CommitTransactionAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+        }
+    }
     async public Task DeleteMood(DailyMood mood)
     {
         var transaction = await context.Database.BeginTransactionAsync();
