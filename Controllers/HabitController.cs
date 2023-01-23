@@ -102,6 +102,41 @@ public class HabitController : ControllerBase
         }
     }
 
+    [HttpPut]
+    [Route("change-habit-record")]
+    async public Task<ActionResult<DailyHabitRecord>> ChangeDailyHabitRecord([FromBody] DailyHabitRecord dailyRecord)
+    {
+
+        var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        dailyRecord.IdentityUserID = currentUser;
+
+
+        if (dailyRecord == null)
+        {
+            return BadRequest();
+        }
+
+        var result = await this.habitRepository.BeUniqueDailyHabitRecord(dailyRecord);
+        if (result)
+        {
+            var id = await this.habitRepository.FindDailyHabitRecordId(dailyRecord);
+            var current = await this.habitRepository.FindCurrentCompletionStatus(dailyRecord);
+            dailyRecord.CompletionStatus = !current;
+
+            await this.habitService.UpdateDailyHabitRecord(id, dailyRecord);
+            return Ok();
+            //need error handling
+        }
+        else
+        {
+            dailyRecord.Id = Guid.NewGuid();
+            dailyRecord.CompletionStatus = true;
+            await this.habitService.AddNewDailyRecord(dailyRecord);
+            return Ok();
+            //need error handling
+        }
+    }
+
 
     [HttpDelete]
     [Route("delete-habit/{id:Guid}")]

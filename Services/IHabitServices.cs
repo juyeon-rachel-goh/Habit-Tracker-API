@@ -11,7 +11,9 @@ public interface IHabitService
     public Task<IList<DailyMood>> GetDailyMoods(string currentUser);
     public Task AddHabit(Habit habit);
     public Task AddMood(DailyMood mood);
+    public Task AddNewDailyRecord(DailyHabitRecord record);
     public Task UpdateMood(Guid id, DailyMood mood);
+    public Task UpdateDailyHabitRecord(Guid id, DailyHabitRecord record);
     public Task DeleteHabit(Habit habit);
     public Task DeleteMood(DailyMood mood);
 
