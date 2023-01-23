@@ -62,6 +62,7 @@ public class HabitController : ControllerBase
         return Ok();
     }
 
+
     // [HttpPatch]
     // [Route("archive/${id: Guid}")]
     // async public Task<ActionResult<Habit>> archiveHabit([FromBody] string value, Guid id)
@@ -101,6 +102,19 @@ public class HabitController : ControllerBase
         }
     }
 
+
+    [HttpDelete]
+    [Route("delete-habit/{id:Guid}")]
+    async public Task<ActionResult<Habit>> DeleteHabit(Guid id)
+    {
+        var habit = await habitRepository.GetHabitbyID(id);
+        if (habit == null)
+        {
+            return NotFound();
+        }
+        await this.habitService.DeleteHabit(habit);
+        return Ok();
+    }
     [HttpDelete]
     [Route("delete-mood/{id:Guid}")]
     async public Task<ActionResult<DailyMood>> DeleteMood(Guid id)

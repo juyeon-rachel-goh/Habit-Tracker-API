@@ -12,6 +12,7 @@ public interface IHabitService
     public Task AddHabit(Habit habit);
     public Task AddMood(DailyMood mood);
     public Task UpdateMood(Guid id, DailyMood mood);
+    public Task DeleteHabit(Habit habit);
     public Task DeleteMood(DailyMood mood);
 
 }
