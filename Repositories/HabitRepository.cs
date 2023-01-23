@@ -61,4 +61,35 @@ public class HabitRepository : IHabitRepository
         .Where(habit => habit.Id == id)
         .FirstAsync();
     }
+
+    async public Task<bool> BeUniqueDailyHabitRecord(DailyHabitRecord record)
+    {
+        var result = await this.context.DailyHabitRecords
+        .Where(data => data.Date == record.Date && data.HabitId == record.HabitId && data.IdentityUserID == record.IdentityUserID)
+        .CountAsync();
+        if (result == 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    async public Task<Guid> FindDailyHabitRecordId(DailyHabitRecord record)
+    {
+        var result = await this.context.DailyHabitRecords
+        .AsNoTracking()
+        .Where(data => data.Date == record.Date && data.HabitId == record.HabitId && data.IdentityUserID == record.IdentityUserID)
+        .FirstAsync();
+        return result.Id;
+    }
+
+    async public Task<bool> FindCurrentCompletionStatus(DailyHabitRecord record)
+    {
+        var result = await this.context.DailyHabitRecords
+        .AsNoTracking()
+        .Where(data => data.Date == record.Date && data.HabitId == record.HabitId && data.IdentityUserID == record.IdentityUserID)
+        .FirstAsync();
+        return result.CompletionStatus;
+    }
 }

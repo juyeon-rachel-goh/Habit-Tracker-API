@@ -12,4 +12,8 @@ public interface IHabitRepository
 
     public Task<Habit> GetHabitbyID(Guid id);
 
+    public Task<bool> BeUniqueDailyHabitRecord(DailyHabitRecord record);
+    public Task<Guid> FindDailyHabitRecordId(DailyHabitRecord record);
+    public Task<bool> FindCurrentCompletionStatus(DailyHabitRecord record);
+
 }

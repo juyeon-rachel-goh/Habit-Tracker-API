@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\habit-Tracker-API\\Api.csproj": {}
+    "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\habit-Tracker-API\\Api.csproj": {
+    "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\habit-Tracker-API\\Api.csproj",
+        "projectUniqueName": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\habit-Tracker-API\\Api.csproj",
+        "projectPath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\Api.csproj",
         "packagesPath": "C:\\Users\\Rachel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\habit-Tracker-API\\obj\\",
+        "outputPath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rachel\\AppData\\Roaming\\NuGet\\NuGet.Config",
