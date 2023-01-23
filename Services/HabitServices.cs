@@ -28,6 +28,11 @@ public class HabitService : IHabitService
     {
         return await this.context.DailyMoods.Where(mood => mood.IdentityUserID == currentUser).ToListAsync();
     }
+
+    async public Task<IList<DailyHabitRecord>> GetCompletionStatus(string currentUser)
+    {
+        return await this.context.DailyHabitRecords.Where(mood => mood.IdentityUserID == currentUser).ToListAsync();
+    }
     async public Task AddHabit(Habit habit)
     {
         var transaction = await context.Database.BeginTransactionAsync();

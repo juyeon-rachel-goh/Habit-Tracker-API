@@ -42,6 +42,14 @@ public class HabitController : ControllerBase
         return await this.habitService.GetHabits(currentUser);
     }
 
+    [HttpGet]
+    [Route("history")]
+    async public Task<IList<DailyHabitRecord>> GetCompletionStatus()
+    {
+        var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        return await this.habitService.GetCompletionStatus(currentUser);
+    }
+
     [HttpPost]
     [Route("new-habit")]
     async public Task<ActionResult<Habit>> AddHabit([FromBody] Habit habit)
