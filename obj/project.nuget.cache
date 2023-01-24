@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pgFeVqx7DnNhOQB+L8iOcR0HLpvGLTwpbiU1Rx3JJGb96g4kx3y7kuhgxo9wTwg8zARsuL93EZofknDMrk4z0Q==",
+  "dgSpecHash": "wVueu1VC1IQASLwkBWhTNlUM754SjlyC5Uu3gWHjOb5sGx6LC0lgj9/LOFO9Aiz9BOS5QXZB58Vc18UbYdFuMw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rachel\\Desktop\\Habit Tracker\\Habit-Tracker-API\\Api.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,9 @@
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\6.0.7\\microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.7.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.7\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.7.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.7\\microsoft.aspnetcore.identity.ui.6.0.7.nupkg.sha512",
+    "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.2\\microsoft.aspnetcore.jsonpatch.7.0.2.nupkg.sha512",
+    "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.13\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.13.nupkg.sha512",
+    "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.7\\microsoft.data.sqlite.core.6.0.7.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.7\\microsoft.entityframeworkcore.6.0.7.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.7\\microsoft.entityframeworkcore.abstractions.6.0.7.nupkg.sha512",
@@ -35,6 +38,7 @@
     "C:\\Users\\Rachel\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
+    "C:\\Users\\Rachel\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.6\\sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
     "C:\\Users\\Rachel\\.nuget\\packages\\sqlitepclraw.core\\2.0.6\\sqlitepclraw.core.2.0.6.nupkg.sha512",
