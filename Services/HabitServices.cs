@@ -1,6 +1,7 @@
 using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -102,6 +103,12 @@ public class HabitService : IHabitService
 
         await context.SaveChangesAsync();
 
+    }
+
+    async public Task PatchArchiveStatus(Habit habit, JsonPatchDocument value)
+    {
+        value.ApplyTo(habit);
+        await context.SaveChangesAsync();
     }
 
     async public Task DeleteHabit(Habit habit)

@@ -1,4 +1,5 @@
 using Api.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Services;
@@ -16,6 +17,7 @@ public interface IHabitService
     public Task UpdateMood(Guid id, DailyMood mood); //dont need id here if 
     public Task UpdateHabit(Habit habit);
     public Task UpdateDailyHabitRecord(Guid id, DailyHabitRecord record);
+    public Task PatchArchiveStatus(Habit habit, JsonPatchDocument value);
     public Task DeleteHabit(Habit habit);
     public Task DeleteMood(DailyMood mood);
 

@@ -15,7 +15,7 @@ public class Habit
 
     public DateTime CreatedOn { get; set; }
 
-    public ArchiveStatus ArchiveStatus { get; set; }
+    public bool ArchiveStatus { get; set; }
 
 
     [JsonIgnore]
