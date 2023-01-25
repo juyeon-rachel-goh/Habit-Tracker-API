@@ -91,7 +91,7 @@ public class HabitController : ControllerBase
 
     // Upserting Mood Data 
     [HttpPut]
-    [Route("update-mood")]
+    [Route("mood/upsert")]
     async public Task<ActionResult<DailyMood>> AddMood([FromBody] DailyMood mood)
     {
 
@@ -106,9 +106,9 @@ public class HabitController : ControllerBase
         var result = await this.habitRepository.BeUniqueDailyMood(mood);
         if (result) // true -> update existing record
         {
-            var id = await this.habitRepository.FindDailyMoodId(mood);
+            var id = mood.Id;
 
-            await this.habitService.UpdateMood(id, mood);
+            await this.habitService.UpdateMood(mood);
             return Ok();
             //need error handling
         }
@@ -170,7 +170,7 @@ public class HabitController : ControllerBase
         return Ok();
     }
     [HttpDelete]
-    [Route("delete-mood/{id:Guid}")]
+    [Route("mood/delete/{id:Guid}")]
     async public Task<ActionResult<DailyMood>> DeleteMood(Guid id)
     {
         var mood = await habitRepository.GetDailyMoodbyID(id);

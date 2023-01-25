@@ -88,9 +88,8 @@ public class HabitService : IHabitService
 
     }
 
-    async public Task UpdateMood(Guid id, DailyMood mood)
+    async public Task UpdateMood(DailyMood mood)
     {
-        mood.Id = id;
         context.DailyMoods.Update(mood);
 
         await context.SaveChangesAsync();
