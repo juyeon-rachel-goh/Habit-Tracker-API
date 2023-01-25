@@ -50,23 +50,34 @@ public class HabitController : ControllerBase
         return await this.habitService.GetCompletionStatus(currentUser);
     }
 
-    [HttpPost]
-    [Route("new-habit")]
+    [HttpPut] // Changed from POST -> PUT (upserting)
+    [Route("upsert-habit")]
     async public Task<ActionResult<Habit>> AddHabit([FromBody] Habit habit)
     {
-        habit.Id = Guid.NewGuid();
-        habit.ArchiveStatus = (ArchiveStatus)0;
-        habit.CreatedOn = DateTime.Now;
-
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
         habit.IdentityUserID = currentUser;
-
 
         if (habit == null)
         {
             return BadRequest();
         }
-        await this.habitService.AddHabit(habit);
+
+        var result = await this.habitRepository.BeUniqueHabit(habit);
+        if (result) //if true
+        {
+            var id = habit.Id;
+            await this.habitService.UpdateHabit(habit);
+            return Ok();
+            //need error handling
+        }
+        else
+        {
+            habit.Id = Guid.NewGuid();
+            habit.ArchiveStatus = (ArchiveStatus)0;
+            habit.CreatedOn = DateTime.Now;
+            await this.habitService.AddHabit(habit);
+        }
+
         return Ok();
     }
 
