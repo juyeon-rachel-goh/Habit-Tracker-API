@@ -74,6 +74,17 @@ public class HabitRepository : IHabitRepository
         return false;
     }
 
+    async public Task<bool> BeUniqueHabit(Habit habit)
+    {
+        var result = await this.context.Habits
+        .Where(data => data.Id == habit.Id && data.IdentityUserID == habit.IdentityUserID)
+        .CountAsync();
+        if (result == 1)
+        {
+            return true;
+        }
+        return false;
+    }
 
     async public Task<Guid> FindDailyHabitRecordId(DailyHabitRecord record)
     {

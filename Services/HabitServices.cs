@@ -80,7 +80,13 @@ public class HabitService : IHabitService
             await transaction.RollbackAsync();
         }
     }
+    async public Task UpdateHabit(Habit habit)
+    {
+        context.Habits.Update(habit);
 
+        await context.SaveChangesAsync();
+
+    }
 
     async public Task UpdateMood(Guid id, DailyMood mood)
     {
