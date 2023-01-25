@@ -5,7 +5,6 @@ using Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace Api.Controllers;
 
@@ -14,22 +13,18 @@ namespace Api.Controllers;
 public class HabitController : ControllerBase
 {
     private readonly IHabitService habitService;
-    private ILogger<HabitController> _logger;
+
     private readonly IHabitRepository habitRepository;
     private UserManager<IdentityUser> _userManager;
     private IUtility utility;
-    public HabitController(ILogger<HabitController> logger, IHabitService habitService, IHabitRepository habitRepository, UserManager<IdentityUser> userManager, IUtility utility)
+    public HabitController(IHabitService habitService, IHabitRepository habitRepository, UserManager<IdentityUser> userManager, IUtility utility)
     {
-        _logger = logger;
         this.habitService = habitService;
         this.habitRepository = habitRepository;
         _userManager = userManager;
         this.utility = utility;
 
     }
-
-
-
 
     [HttpGet]
     [Route("mood")]
@@ -44,7 +39,6 @@ public class HabitController : ControllerBase
     async public Task<IList<Habit>> GetHabits()
     {
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
-
         return await this.habitService.GetHabits(currentUser);
     }
 
@@ -60,13 +54,6 @@ public class HabitController : ControllerBase
     [Route("upsert-habit")]
     async public Task<ActionResult<Habit>> AddHabit([FromBody] Habit habit)
     {
-<<<<<<< HEAD
-=======
-        habit.Id = Guid.NewGuid();
-        habit.ArchiveStatus = false;
-        habit.CreatedOn = DateTime.Now;
-
->>>>>>> 9072342850a1382eeec231214f6229945e2ac93a
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
         habit.IdentityUserID = currentUser;
 
@@ -86,7 +73,7 @@ public class HabitController : ControllerBase
         else
         {
             habit.Id = Guid.NewGuid();
-            habit.ArchiveStatus = (ArchiveStatus)0;
+            habit.ArchiveStatus = false;
             habit.CreatedOn = DateTime.Now;
             await this.habitService.AddHabit(habit);
         }
@@ -95,9 +82,14 @@ public class HabitController : ControllerBase
     }
 
 
+    // [HttpPatch]
+    // [Route("archive/${id: Guid}")]
+    // async public Task<ActionResult<Habit>> archiveHabit([FromBody] string value, Guid id)
+    // {
+    //     var habit = await habitRepository.GetHabitbyID(id);
+    // }
 
-
-
+    // Upserting Mood Data 
     [HttpPut]
     [Route("update-mood")]
     async public Task<ActionResult<DailyMood>> AddMood([FromBody] DailyMood mood)
@@ -164,21 +156,7 @@ public class HabitController : ControllerBase
         }
     }
 
-    [HttpPatch]
-    [Route("change-habit-record/{id:Guid}")]
-    async public Task<ActionResult> archiveHabit([FromBody] JsonPatchDocument value, Guid id)
-    {
-        var habit = await habitRepository.GetHabitbyID(id);
-        if (habit == null)
-        {
-            _logger.LogInformation("getting archive habit request hit - habit null?");
-            return BadRequest();
 
-        }
-        await this.habitService.PatchArchiveStatus(habit, value);
-        _logger.LogInformation("getting archive habit request hit");
-        return Ok();
-    }
     [HttpDelete]
     [Route("delete-habit/{id:Guid}")]
     async public Task<ActionResult<Habit>> DeleteHabit(Guid id)
@@ -203,7 +181,6 @@ public class HabitController : ControllerBase
         await this.habitService.DeleteMood(mood);
         return Ok();
     }
-
 
 }
 
