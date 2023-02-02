@@ -86,21 +86,12 @@ public class HabitRepository : IHabitRepository
         return false;
     }
 
-    async public Task<Guid> FindDailyHabitRecordId(DailyHabitRecord record)
+    async public Task<DailyHabitRecord> GetRecordbyId(Guid id)
     {
         var result = await this.context.DailyHabitRecords
         .AsNoTracking()
-        .Where(data => data.Date == record.Date && data.HabitId == record.HabitId && data.IdentityUserID == record.IdentityUserID)
+        .Where(record => record.Id == id)
         .FirstAsync();
-        return result.Id;
-    }
-
-    async public Task<bool> FindCurrentCompletionStatus(DailyHabitRecord record)
-    {
-        var result = await this.context.DailyHabitRecords
-        .AsNoTracking()
-        .Where(data => data.Date == record.Date && data.HabitId == record.HabitId && data.IdentityUserID == record.IdentityUserID)
-        .FirstAsync();
-        return result.CompletionStatus;
+        return result;
     }
 }

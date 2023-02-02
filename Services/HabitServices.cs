@@ -32,7 +32,10 @@ public class HabitService : IHabitService
 
     async public Task<IList<DailyHabitRecord>> GetCompletionStatus(string currentUser)
     {
-        return await this.context.DailyHabitRecords.Where(mood => mood.IdentityUserID == currentUser).ToListAsync();
+        return await this.context.DailyHabitRecords
+        .Where(record => record.IdentityUserID == currentUser)
+        .OrderBy(data => data.Date)
+        .ToListAsync();
     }
     async public Task AddHabit(Habit habit)
     {
@@ -95,14 +98,6 @@ public class HabitService : IHabitService
         await context.SaveChangesAsync();
 
     }
-    async public Task UpdateDailyHabitRecord(Guid id, DailyHabitRecord record)
-    {
-        record.Id = id;
-        context.DailyHabitRecords.Update(record);
-
-        await context.SaveChangesAsync();
-
-    }
 
     async public Task PatchArchiveStatus(Habit habit, JsonPatchDocument value)
     {
@@ -139,5 +134,28 @@ public class HabitService : IHabitService
         {
             await transaction.RollbackAsync();
         }
+    }
+
+    async public Task DeleteRecord(DailyHabitRecord record)
+    {
+        var transaction = await context.Database.BeginTransactionAsync();
+        try
+        {
+            context.DailyHabitRecords.Remove(record);
+            await context.SaveChangesAsync();
+
+            await context.Database.CommitTransactionAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+        }
+    }
+
+    async public Task ArchiveHabit(JsonPatchDocument<Habit> patchDoc, Habit habit)
+    {
+        patchDoc.ApplyTo(habit);
+        context.Habits.Update(habit);
+        await context.SaveChangesAsync();
     }
 }

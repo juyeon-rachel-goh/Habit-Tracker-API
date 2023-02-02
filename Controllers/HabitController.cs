@@ -5,6 +5,7 @@ using Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Api.Controllers;
 
@@ -43,7 +44,7 @@ public class HabitController : ControllerBase
     }
 
     [HttpGet]
-    [Route("history")]
+    [Route("records")]
     async public Task<IList<DailyHabitRecord>> GetCompletionStatus()
     {
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
@@ -82,12 +83,14 @@ public class HabitController : ControllerBase
     }
 
 
-    // [HttpPatch]
-    // [Route("archive/${id: Guid}")]
-    // async public Task<ActionResult<Habit>> archiveHabit([FromBody] string value, Guid id)
-    // {
-    //     var habit = await habitRepository.GetHabitbyID(id);
-    // }
+    [HttpPatch]
+    [Route("archive/{id:Guid}")]
+    async public Task<ActionResult<Habit>> archiveHabit([FromBody] JsonPatchDocument<Habit> patchDoc, Guid id)
+    { // DTO like username in Auth (more specific way to patch)
+        var habit = await habitRepository.GetHabitbyID(id);
+        await habitService.ArchiveHabit(patchDoc, habit);
+        return Ok();
+    }
 
     // Upserting Mood Data 
     [HttpPut]
@@ -96,6 +99,7 @@ public class HabitController : ControllerBase
     {
 
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
+        // 
         mood.IdentityUserID = currentUser;
 
         if (mood == null)
@@ -121,46 +125,35 @@ public class HabitController : ControllerBase
         }
     }
 
-    [HttpPut]
-    [Route("change-habit-record")]
-    async public Task<ActionResult<DailyHabitRecord>> ChangeDailyHabitRecord([FromBody] DailyHabitRecord dailyRecord)
+    [HttpPost]
+    [Route("records/complete")] //update completion status
+    async public Task<ActionResult<DailyHabitRecord>> AddDailyRecord([FromBody] DailyHabitRecord record)
     {
 
         var currentUser = (await this.utility.GetContextUser(HttpContext)).Id;
-        dailyRecord.IdentityUserID = currentUser;
+        // compare ID before hitting respository
+        record.IdentityUserID = currentUser;
 
 
-        if (dailyRecord == null)
+        if (record == null)
         {
             return BadRequest();
         }
 
-        var result = await this.habitRepository.BeUniqueDailyHabitRecord(dailyRecord);
-        if (result)
-        {
-            var id = await this.habitRepository.FindDailyHabitRecordId(dailyRecord);
-            var current = await this.habitRepository.FindCurrentCompletionStatus(dailyRecord);
-            dailyRecord.CompletionStatus = !current;
-
-            await this.habitService.UpdateDailyHabitRecord(id, dailyRecord);
-            return Ok();
-            //need error handling
-        }
-        else
-        {
-            dailyRecord.Id = Guid.NewGuid();
-            dailyRecord.CompletionStatus = true;
-            await this.habitService.AddNewDailyRecord(dailyRecord);
-            return Ok();
-            //need error handling
-        }
+        record.Id = Guid.NewGuid();
+        record.CompletionStatus = true;
+        await this.habitService.AddNewDailyRecord(record);
+        return Ok();
+        //need error handling
     }
+
 
 
     [HttpDelete]
     [Route("delete-habit/{id:Guid}")]
     async public Task<ActionResult<Habit>> DeleteHabit(Guid id)
     {
+        //user ID checks before running below 
         var habit = await habitRepository.GetHabitbyID(id);
         if (habit == null)
         {
@@ -179,6 +172,19 @@ public class HabitController : ControllerBase
             return NotFound();
         }
         await this.habitService.DeleteMood(mood);
+        return Ok();
+    }
+
+    [HttpDelete]
+    [Route("records/delete/{id:Guid}")]
+    async public Task<ActionResult<Habit>> DeleteRecord(Guid id)
+    {
+        var record = await habitRepository.GetRecordbyId(id);
+        if (record == null)
+        {
+            return NotFound();
+        }
+        await this.habitService.DeleteRecord(record);
         return Ok();
     }
 
