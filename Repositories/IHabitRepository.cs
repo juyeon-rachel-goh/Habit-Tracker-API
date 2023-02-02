@@ -9,12 +9,9 @@ public interface IHabitRepository
     public Task<Guid> FindDailyMoodId(DailyMood mood);
 
     public Task<DailyMood> GetDailyMoodbyID(Guid id);
-
     public Task<Habit> GetHabitbyID(Guid id);
-
+    public Task<DailyHabitRecord> GetRecordbyId(Guid id);
     public Task<bool> BeUniqueDailyHabitRecord(DailyHabitRecord record);
     public Task<bool> BeUniqueHabit(Habit habit);
-    public Task<Guid> FindDailyHabitRecordId(DailyHabitRecord record);
-    public Task<bool> FindCurrentCompletionStatus(DailyHabitRecord record);
 
 }

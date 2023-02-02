@@ -10,7 +10,7 @@ public class DailyHabitRecord
 
     public bool CompletionStatus { get; set; }
 
-    public Guid HabitId { get; set; } //Foreign Key - one habit -- many dailyhabitrecords
+    public Guid HabitId { get; set; }
 
     public Habit? Habits { get; set; }
 

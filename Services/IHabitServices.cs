@@ -16,9 +16,10 @@ public interface IHabitService
     public Task AddNewDailyRecord(DailyHabitRecord record);
     public Task UpdateMood(DailyMood mood); //dont need id here if 
     public Task UpdateHabit(Habit habit);
-    public Task UpdateDailyHabitRecord(Guid id, DailyHabitRecord record);
     public Task PatchArchiveStatus(Habit habit, JsonPatchDocument value);
     public Task DeleteHabit(Habit habit);
     public Task DeleteMood(DailyMood mood);
+    public Task DeleteRecord(DailyHabitRecord record);
+    public Task ArchiveHabit(JsonPatchDocument<Habit> patchDoc, Habit habit);
 
 }
