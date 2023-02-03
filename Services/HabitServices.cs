@@ -99,12 +99,6 @@ public class HabitService : IHabitService
 
     }
 
-    async public Task PatchArchiveStatus(Habit habit, JsonPatchDocument value)
-    {
-        value.ApplyTo(habit);
-        await context.SaveChangesAsync();
-    }
-
     async public Task DeleteHabit(Habit habit)
     {
         var transaction = await context.Database.BeginTransactionAsync();

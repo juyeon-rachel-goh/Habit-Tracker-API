@@ -11,13 +11,8 @@ public class Habit
     public string? Frequency { get; set; }
     public string CountPerFreq { get; set; }
     public string IconColor { get; set; }
-    public string IconImage { get; set; }
-
     public DateTime CreatedOn { get; set; }
-
     public bool ArchiveStatus { get; set; }
-
-
     [JsonIgnore]
     [ForeignKey("IdentityUser")]
     public string? IdentityUserID { get; set; }
