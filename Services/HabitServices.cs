@@ -34,7 +34,7 @@ public class HabitService : IHabitService
     {
         return await this.context.DailyHabitRecords
         .Where(record => record.IdentityUserID == currentUser)
-        .OrderBy(data => data.Date)
+        .OrderBy(x => x.Date)
         .ToListAsync();
     }
     async public Task AddHabit(Habit habit)

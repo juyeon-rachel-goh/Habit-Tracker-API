@@ -102,7 +102,6 @@ public class HabitController : ControllerBase
         // compare ID before hitting respository
         record.IdentityUserID = currentUser;
 
-
         if (record == null)
         {
             return BadRequest();
