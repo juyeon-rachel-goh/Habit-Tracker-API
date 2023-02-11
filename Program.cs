@@ -4,11 +4,11 @@ using Api.Data;
 using Api.Repositories;
 using Api.Services;
 using Api.Controllers;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApiDbContext>(options =>
          options.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.8.3-mariadb")));
 builder.Services.AddScoped<IUtility, Utility>();
@@ -24,6 +24,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
 
