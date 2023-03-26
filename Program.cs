@@ -42,11 +42,17 @@ namespace Api
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+                using (var scope = app.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
 
-            app.UseHttpsRedirection();
+                    var context = services.GetRequiredService<ApiDbContext>();
+                    if (context.Database.GetPendingMigrations().Any())
+                    {
+                        context.Database.Migrate();
+                    }
+                }
+            }
             app.UseStaticFiles();
 
             app.UseRouting();
